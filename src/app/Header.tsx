@@ -4,7 +4,7 @@ import { SiMedium } from "react-icons/si"
 type Props = {}
 const Header = (props: Props) => {
   return (
-    <div className="sticky top-0 px-4 sm:px-14 pt-8 pb-4 w-full flex justify-between border-b border-black">
+    <div className="px-4 sm:px-14 pt-8 pb-4 w-full flex justify-between border-b border-black">
         <Link href="/" className="flex items-center">
             <SiMedium className="text-5xl mr-2"/>
             <h1 className="text-4xl font-serif tracking-tighter">Medium</h1>
