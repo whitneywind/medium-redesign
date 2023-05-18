@@ -1,13 +1,12 @@
-import Image from 'next/image'
 import Header from './Header'
-import { sanityClient, urlFor } from "../../sanity"
+import { sanityClient } from "../../sanity"
 import { Post } from '../../typings'
-import Link from 'next/link';
+import PostPreview from './PostPreview';
 
 export default async function Home() {
   const posts: Post[] = await getData();
   return (
-    <div className='lg:w-3/4 max-w-4xl mx-auto'>
+    <div className='md:w-3/4 max-w-4xl mx-auto'>
       <Header />
       <main className="flex flex-col items-center justify-between">
         <div className='bg-amber-300 w-full p-12 border-b border-black'>
@@ -15,14 +14,9 @@ export default async function Home() {
           <p><span className='underline'>Medium</span> is the place to discover stories, thinking, and expertise from writers on any topic.</p>
         </div>
       </main>
-      <div className='max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
+      <div className='max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
         {posts.map(post => (
-          <Link key={post._id} href={`/post/${post.slug.current}`}>
-            <div className='border border-green-600 border-dashed overflow-hidden'>
-              <img src={urlFor(post.mainImage).url()!} alt="image" className='' />
-              <p>{post.title}</p>
-            </div>
-          </Link>
+          <PostPreview post={post}/>
         ))}
       </div>
     </div>
@@ -32,13 +26,16 @@ export default async function Home() {
 export async function getData() {
   let query = `*[_type == "post"]{
     _id,
+    _createdAt,
     title,
     slug,
     mainImage,
     author -> {
       name,
       image
-    }
+    },
+    body,
+    intro
   }`;
   const posts = await sanityClient.fetch(query)
 

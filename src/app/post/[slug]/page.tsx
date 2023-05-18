@@ -1,5 +1,7 @@
-import { sanityClient } from "../../../../sanity"
+import Header from "@/app/Header";
+import { sanityClient, urlFor } from "../../../../sanity"
 import { Post } from "../../../../typings"
+import PortableText from "react-portable-text";
 
 type Props = {
   params: {
@@ -9,11 +11,25 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { slug } = params;
-  const post = await getData(slug);
-  console.log(post.title)
+  const post: Post = await getData(slug);
 
   return (
-    <div>page{slug}</div>
+    <main className='lg:w-3/4 max-w-4xl mx-auto'>
+      <Header />
+      <article className="">
+        <div className="w-full h-fit">
+          <div className="w-full h-72 md:h-[24rem] xl:h-[30rem] overflow-hidden">
+            <img src={urlFor(post.mainImage).url()} alt="main image" className="w-full h-full object-cover object-center" />
+          </div>
+          <h3>Author: {post.author.name}</h3>
+        </div>
+        <PortableText 
+          content={post.body}
+          dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
+          projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
+        />
+      </article>
+    </main>
   )
 }
 
@@ -50,22 +66,3 @@ export async function generateStaticParams() {
     slug: post.slug.current,
   }));
 }
-
-
-// getStaticProps (like getServerSideProps) has been replaced by a new API inside the app folder
-// export const getStaticProps: GetStaticProps = async ({ params }) => {
-//     const query = `*[_type == "post" && slug.current == $slug][0]{
-//             _id,
-//             _createdAt,
-//             title,
-//             author-> {
-//             name,
-//             image
-//             },
-//             mainImage,
-//             slug,
-//             body}`
-//     const post = await sanityClient.fetch(query, {
-//         slug: params?.slug,});
-//     if (!post) {return {notFound: true,}}
-//     return {props: {post,}}}
