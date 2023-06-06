@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <div className='sm:w-3/4 max-w-4xl mx-16 md:mx-auto'>
       <Header />
-      <main className="flex flex-col items-center justify-between">
+      <main className="flex sm:col-span-2 flex-col items-center justify-between">
         <div>
           <ul className='inline-flex text-sm space-x-8 my-3 tracking-wide text-gray-800'>
             <li>Home</li>
@@ -22,9 +22,11 @@ export default async function Home() {
           <p className='hidden sm:block sm:w-2/3 mt-2 lg:ml-24 sm:text-justify lg:text-right lg:mt-6'><span className='underline'>Medium</span> is the place to discover `stories, thinking, and expertise from writers on any topic.</p>
         </div>
       </main>
-      <div className='max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-4'>
-        {posts.map(post => (
-          <PostPreview post={post} />
+      <div className='max-w-full min-h-[35rem] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-rows-5 gap-4 my-4'>
+        {posts.map((post, ind) => (
+          <div key={ind} className={`art${ind} w-full shadow-lg border border-1 border-gray-200 p-5`}>
+            <PostPreview key={ind} index={ind} post={post} />
+          </div>
         ))}
       </div>
     </div>

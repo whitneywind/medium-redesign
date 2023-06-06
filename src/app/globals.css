@@ -2,6 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@media (min-width: 1024px) {
+  .art0 {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+  }
+  .art0 #post-container {
+    flex-direction: column;
+  }
+  .art0 #info-cont {
+    width: 100%;
+  }
+  .art0 #img-cont {
+    width: 100%;
+  }
+  .art0 img {
+    border-radius: 2px;
+    width: 100%;
+    height: 22rem;
+    margin-bottom: 5px;
+  }
+  .art0 article p {
+    font-size: 1rem;
+  }
+  
+  .art1 {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+  }
+  
+  .art5 {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+  }
+}
+
+/* @layer utilities {
+  .grid-template-areas-articles {
+    display: grid;
+    grid-template-areas:
+    "art0 art0 art1"
+    "art0 art0 art1"
+    "art2 art2 art3"
+    "art4 art5 .";
+grid-template-rows: auto;
+grid-template-columns: auto;
+}
+} */
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
