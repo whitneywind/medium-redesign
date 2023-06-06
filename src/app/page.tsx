@@ -6,7 +6,7 @@ import PostPreview from './PostPreview';
 export default async function Home() {
   const posts: Post[] = await getData();
   return (
-    <div className='sm:w-3/4 max-w-4xl mx-16 md:mx-auto'>
+    <div className='sm:w-3/4 max-w-4xl mx-16 mb-3 md:mx-auto'>
       <Header />
       <div className='w-full flex justify-center border-b border-black'>
         <ul className='inline-flex text-sm space-x-8 my-3 tracking-wide text-gray-800'>
@@ -26,7 +26,7 @@ export default async function Home() {
       <main className="flex sm:col-span-2 flex-col items-center justify-between">
         <div className='bg-amber-300 w-full p-12 sm:flex border-y border-black'>
           <h3 className='font-serif text-5xl text-center sm:text-left'>Stay curious.</h3>
-          <p className='hidden sm:block sm:w-2/3 mt-2 lg:ml-24 sm:text-justify lg:text-right lg:mt-6'><span className='underline'>Medium</span> is the place to discover `stories, thinking, and expertise from writers on any topic.</p>
+          <p className='hidden sm:block sm:w-2/3 mt-2 lg:ml-24 sm:text-justify lg:text-right lg:mt-4 lg:text-lg'><span className='underline'>Medium</span> is the place to discover stories, thinking, and expertise from writers on any topic.</p>
         </div>
       </main>
     </div>
