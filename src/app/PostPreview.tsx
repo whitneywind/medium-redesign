@@ -10,7 +10,7 @@ type Props = {
 interface PostPreviewProps {
     post: Post;
     index: number;
-  }
+}
 
   const PostPreview: React.FC<PostPreviewProps> = ({ post, index }) => {
     return (
@@ -32,16 +32,6 @@ interface PostPreviewProps {
             <article>
                 <p className="text-sm text-gray-700">{post.intro}</p>
             </article>
-            {/* {(index === 0 || index === 1) && (
-                 <div id="hidden-img" className="relative pt-6">
-                 <img
-                   src={urlFor(post.mainImage).url()!}
-                   alt="image"
-                   className="object-cover object-center w-full"
-                   style={{ maxHeight: "100%", width: "100%" }}
-                 />
-               </div>
-            )} */}
         </Link>
   )
 }

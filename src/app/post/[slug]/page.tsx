@@ -2,6 +2,7 @@ import Header from "@/app/Header";
 import { sanityClient, urlFor } from "../../../../sanity"
 import { Post } from "../../../../typings"
 import PortableText from "react-portable-text";
+import CommentBox from "./CommentsBox";
 
 type Props = {
   params: {
@@ -20,14 +21,14 @@ export default async function Page({ params }: Props) {
   return (
     <main className='lg:w-3/4 max-w-4xl mx-auto mb-16'>
       <Header />
-      <article className="">
+      <article>
         <h1 className="text-5xl my-7 text-center mx-auto w-full tracking-wide font-serif">{post.title}</h1>
         <div className="w-full h-72 md:h-[24rem] xl:h-[30rem] overflow-hidden">
           <img src={urlFor(post.mainImage).url()} alt="main image" className="w-full h-full object-cover object-center" />
         </div>
         <div className="w-2/3 mx-auto lg:w-full">
           <div className="w-full my-10">
-            <div className="flex flex-col h-24justify-center items-center space-y-3">
+            <div className="flex flex-col justify-center items-center space-y-3">
                 <p>By {post.author.name}<span className="text-gray-500"> | Staff Writer</span></p>
                 <p>{new Date(post._createdAt).toLocaleString().split(',')[0]}</p>
             </div>
@@ -36,7 +37,7 @@ export default async function Page({ params }: Props) {
             content={post.body}
             dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
             projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
-            className="text-justify"
+            className="text-justify text-lg"
             serializers={{
               h1: (props: any) => (
                   <h1 className="text-2xl font-bold my-5" {...props} />
@@ -49,18 +50,10 @@ export default async function Page({ params }: Props) {
               ),
           }}
           />
-          <div>
-            <button type="button" className="bg-yellow-500 w-full py-2 rounded-md">Hide Comments</button>
-            <div>existing comments here</div>
-            <form className="w-full">
-              <textarea className="border-2 b block w-full h-24 " placeholder="Write your comment here" />
-              <div className="flex justify-center">
-                <button type="submit" className="w-1/3 bg-green-500 rounded-md py-2">post comment</button>
-              </div>
-            </form>
-          </div>
+
         </div>
       </article>
+      <CommentBox id={post._id} />
     </main>
   )
 }
