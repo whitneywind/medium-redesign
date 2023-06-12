@@ -1,45 +1,57 @@
 "use client"
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-
-interface FormInput {
-_id: string;
-name: string;
-email: string;
-comment: string;
-}
+import Comment from './Comment';
+import { FormInput } from '../../../../typings';
+import { useState } from 'react';
 
 interface BoxProps {
     id: string;
+    commentInfo: string;
 }
 
-export default function CommentBox({ id }: BoxProps) {
+export default function CommentBox({ id, commentInfo }: BoxProps) {
+    const comments = JSON.parse(commentInfo);
+    const [submitted, setSubmitted] = useState(false);
+    const [commentHidden, setCommentHidden] = useState(false);
+
     const {
-    register,
-    handleSubmit,
-    formState: { errors },
+        register,
+        handleSubmit,
+        formState: { errors },
     } = useForm<FormInput>()
 
-    const onSubmit: SubmitHandler<FormInput> = (data) => {
-        console.log(data);
-    }
+    const onSubmit: SubmitHandler<FormInput> = async (data) => {
+        await fetch('/api/comment', {
+            method: "POST",
+            body: JSON.stringify(data),
+        }).then(() => {
+            console.log(data);
+        }).catch((err) => {
+            console.log(err)
+        });
+        setSubmitted(true);
+    };
 
     return (
     <div className='w-full flex items-center justify-center pt-6'>
         <div className='space-y-3 flex flex-col w-2/3 lg:w-full'>
-            <button type="button" className="bg-yellow-500 w-full py-2 rounded-md">Hide Comments</button>
-            <div className='rounded border-2 border-solid my-2 p-3 border-yellow-400'>
+            <button type="button" onClick={() => setCommentHidden(!commentHidden)} className="bg-yellow-500 w-full py-2 rounded-md">Hide Comments</button>
+            {!commentHidden ? (
+                <div className='rounded border-2 border-solid my-2 p-3 border-yellow-400'>
                 <div className='w-full px-2 py-1 flex flex-col space-y-2'>
-                    <div className='w-full flex'>
-                        <p className='font-bold w-1/4'>Maggie: </p>
-                        <p className='w-3/4'>Excellent read!</p>
-                    </div>
-                    <div className='w-full flex'>
-                        <p className='font-bold w-1/4'>예나: </p>
-                        <p className='w-3/4'>잘 읽었어요. 다음에 또 읽을게</p>
-                    </div>
+                    {comments.map((comment: FormInput) => (
+                        <Comment key={comment._id} name={comment.name} comment={comment.comment} email={comment.email} _id={comment._id} />
+                    ))}
                 </div>
             </div>
+            ) : (
+                <div></div>
+            )}
+            
+            {submitted ? (
+                <div className='text-4xl bg-yellow-500 py-8 rounded-md font-semibold text-center w-full'>Thank you for your comment</div>
+            ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col space-y-3 pt-6">
                 <h1 className='text-3xl font-semibold'>Leave a Comment:</h1>
                 <input
@@ -86,6 +98,8 @@ export default function CommentBox({ id }: BoxProps) {
                     )}
                 </div>
             </form>
+            )}
+            
         </div>
     </div>
     )

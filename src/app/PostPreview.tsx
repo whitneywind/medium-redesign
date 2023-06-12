@@ -14,7 +14,7 @@ interface PostPreviewProps {
 
   const PostPreview: React.FC<PostPreviewProps> = ({ post, index }) => {
     return (
-        <Link href={`/post/${post.slug.current}`} className={`w-full bg-white`}>
+        <Link href={`/post/${post.slug.current}`} as={`/post/${post.slug.current}`} className={`w-full bg-white`}>
             <div id="post-container" className="flex justify-between gap-5 w-full py-2 my-2">
                 <div id="info-cont" className="pb-2 w-2/3">
                     <div className="border-b-2 border- border-black mb-1">

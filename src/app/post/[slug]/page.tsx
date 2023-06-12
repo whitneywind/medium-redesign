@@ -1,6 +1,6 @@
 import Header from "@/app/Header";
 import { sanityClient, urlFor } from "../../../../sanity"
-import { Post } from "../../../../typings"
+import { Post, FormInput } from "../../../../typings"
 import PortableText from "react-portable-text";
 import CommentBox from "./CommentsBox";
 
@@ -13,6 +13,7 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { slug } = params;
   const post: Post = await getData(slug);
+  const commentInfo = JSON.stringify(post.comments);
 
   if (!post) {
     return <div>Loading...</div>;
@@ -53,7 +54,7 @@ export default async function Page({ params }: Props) {
 
         </div>
       </article>
-      <CommentBox id={post._id} />
+      <CommentBox id={post._id} commentInfo={commentInfo} />
     </main>
   )
 }
@@ -67,6 +68,9 @@ const getData = async (slug: string) => {
         name,
         image
         },
+        'comments': *[
+          _type == "comment"
+        ],
         mainImage,
         slug,
         body}`;

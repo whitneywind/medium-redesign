@@ -6,6 +6,7 @@ export interface Post {
         name: string;
         image: string;
     };
+    comments: FormInput;
     description: string;
     mainImage: {
         asset: {
@@ -18,3 +19,10 @@ export interface Post {
     body: [object];
     intro: string;
 }
+
+export interface FormInput {
+    _id: string;
+    name: string;
+    email: string;
+    comment: string;
+    }
