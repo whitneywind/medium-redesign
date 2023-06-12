@@ -69,7 +69,8 @@ const getData = async (slug: string) => {
         image
         },
         'comments': *[
-          _type == "comment"
+          _type == "comment" &&
+          post._ref == ^._id
         ],
         mainImage,
         slug,
