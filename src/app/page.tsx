@@ -18,7 +18,7 @@ export default async function Home() {
       </div>
       <div className='max-w-full min-h-[35rem] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-rows-4 gap-4 my-4'>
         {posts.map((post, ind) => (
-          <div key={ind} className={`art${ind} w-full shadow-lg border border-1 border-gray-200 p-5`}>
+          <div key={ind} className={`art${ind} w-full shadow-lg border border-1 border-gray-200 px-4 pt-2 pb-3`}>
             <PostPreview key={ind} index={ind} post={post} />
           </div>
         ))}
