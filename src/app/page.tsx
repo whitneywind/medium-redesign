@@ -9,7 +9,7 @@ export default async function Home() {
     <div className='sm:w-3/4 max-w-4xl mx-16 mb-3 md:mx-auto'>
       <Header />
       <div className='w-full flex justify-center border-b border-black'>
-        <ul className='inline-flex text-sm space-x-8 my-3 tracking-wide text-gray-800'>
+        <ul className='hidden md:inline-flex text-sm space-x-8 my-3 tracking-wide text-gray-800'>
           <li>Home</li>
           <li>Art</li>
           <li>Exploration</li>
