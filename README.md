@@ -12,6 +12,8 @@ This responsive web app uses TypeScript, Next.js, Sanity CMS, and TailwindCSS
 
 ![Site Overview2](public/main2.jpg)
 
-![Site Overview3](public/main3.jpg)
-
 ![Site Overview4](public/main4.jpg)
+
+Mobile:
+
+![Site Overview3](public/main3.jpg)
