@@ -33,7 +33,7 @@ export default async function Home() {
   )
 }
 
-export async function getData() {
+async function getData() {
   let query = `*[_type == "post"]{
     _id,
     _createdAt,
